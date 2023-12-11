@@ -4,12 +4,13 @@ import { errorHandler } from "../utils/error.js";
 import jwt from 'jsonwebtoken';
 
 export const signup = async (req, res, next)=>{
-    const {username, email, password} = req.body;
+    const { username, email, password, userType } = req.body;
     const hashPassword = bcrypt.hashSync(password, 10);
-    const newUser = new User({username, email, password: hashPassword});
+    const newUser = new User({ username, email, password: hashPassword, userType });
     try {
         await newUser.save();
-        res.status(201).json("User Created Successfully");
+        if(userType)
+        res.status(201).json("Account Created Successfully");
     } catch (error) {
         next(error);
     }

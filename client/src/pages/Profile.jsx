@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useRef, useState, useEffect } from 'react';
 import {
@@ -19,9 +19,6 @@ import {
 } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 
-
-
-
 export default function Profile() {
   const { currentUser, loading, error } = useSelector((state) => state.user);
   const fileRef = useRef(null);
@@ -31,10 +28,6 @@ export default function Profile() {
   const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const dispatch = useDispatch();
-
-
-
-
 
   useEffect(() => {
     if (file) {
@@ -112,9 +105,8 @@ export default function Profile() {
   };
 
   const handleSignOut = async () => {
-
     try {
-      dispatch(signOutUserStart())
+      dispatch(signOutUserStart());
       const res = await fetch('/api/auth/signout');
       const data = await res.json();
       if (data.success === false) {
@@ -125,7 +117,7 @@ export default function Profile() {
     } catch (error) {
       dispatch(deleteUserFailure(data.message));
     }
-  }
+  };
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -180,26 +172,37 @@ export default function Profile() {
           className='border p-3 rounded-lg'
           onChange={handleChange}
         />
+        <select
+          id='userType'
+          value={formData.userType || currentUser.userType}
+          onChange={handleChange}
+          className='border p-3 rounded-lg'
+        >
+          <option value='Individual'>Individual</option>
+          <option value='Organization'>Organization</option>
+        </select>
         <button
           disabled={loading}
           className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
         >
           {loading ? 'Loading...' : 'Update'}
         </button>
-        </form>
-        <div className='flex justify-between mt-5'>
+      </form>
+      <div className='flex justify-between mt-5'>
         <span
           onClick={handleDeleteUser}
           className='text-red-700 cursor-pointer'
         >
           Delete account
         </span>
-        <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>Sign out</span>
+        <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>
+          Sign out
+        </span>
       </div>
       <p className='text-red-700 mt-5'>{error ? error : ''}</p>
       <p className='text-green-700 mt-5'>
         {updateSuccess ? 'User is updated successfully!' : ''}
       </p>
-        </div>
-  )
+    </div>
+  );
 }

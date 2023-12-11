@@ -27,7 +27,15 @@ export default function Header() {
             <FaSearch className='text-slate-600' />
           </button>
         </form>
-        <ul className='flex gap-4'>
+        <ul className='flex gap-4 items-center'>
+          {currentUser && currentUser.userType === 'Individual' && (
+            <button
+              className='bg-slate-700 text-white px-4 py-2 rounded-md hover:bg-slate-600'
+              disabled
+            >
+              Apply as Organization
+            </button>
+          )}
           <Link to='/'>
             <li className='hidden sm:inline text-slate-700 hover:underline'>
               Home
@@ -38,6 +46,13 @@ export default function Header() {
               About
             </li>
           </Link>
+          {currentUser && (
+            <Link to='/dashboard'>
+              <li className='hidden sm:inline text-slate-700 hover:underline'>
+                Dashboard
+              </li>
+            </Link>
+          )}
           <Link to='/profile'>
             {currentUser ? (
               <img
@@ -46,10 +61,9 @@ export default function Header() {
                 alt='profile'
               />
             ) : (
-              <li className=' text-slate-700 hover:underline'> Sign in</li>
+              <li className='text-slate-700 hover:underline'>Sign in</li>
             )}
           </Link>
-          
         </ul>
       </div>
     </header>

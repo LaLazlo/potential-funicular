@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 
 
-export default function Dashboard() {
+export default function Explore() {
     const { currentUser, loading, error } = useSelector((state) => state.user);
 
   return (

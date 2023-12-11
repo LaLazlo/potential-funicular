@@ -47,9 +47,9 @@ export default function Header() {
             </li>
           </Link>
           {currentUser && (
-            <Link to='/dashboard'>
+            <Link to='/explore'>
               <li className='hidden sm:inline text-slate-700 hover:underline'>
-                Dashboard
+                Explore
               </li>
             </Link>
           )}
